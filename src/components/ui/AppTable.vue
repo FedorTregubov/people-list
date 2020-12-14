@@ -15,7 +15,7 @@
     </thead>
     <tbody>
       <slot name="row">
-        <template v-if="data.length">
+        <template v-if="data && data.length">
           <tr v-for="(item, index) in data" :key="index">
             <td
               v-for="(column, index) in columns"
@@ -27,7 +27,7 @@
           </tr>
         </template>
         <tr v-else>
-          <td :colspan="columns.length || 1">
+          <td :colspan="(columns && columns.length) || 1">
             {{ config.emptyText ? config.emptyText : 'There is no data yet.' }}
           </td>
         </tr>
@@ -37,7 +37,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, watch } from 'vue'
 
 interface TableConfig {
   tableClass?: string

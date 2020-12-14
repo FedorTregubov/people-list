@@ -2,7 +2,7 @@
   <div class="history">
     <h1>{{ headerPrefix }}History</h1>
     <AppTable :columns="['Id', 'Name', 'Action', 'Updated At']" :key="action">
-      <template v-slot:row>
+      <template v-if="history" v-slot:row>
         <tr v-for="item in history" :key="item.id">
           <td>{{ item.id }}</td>
           <td>{{ item.name }}</td>

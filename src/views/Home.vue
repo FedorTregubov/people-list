@@ -3,13 +3,41 @@
     <div class="row align-items-start">
       <div class="col-sm">
         <PeopleSearch class="mb-3" @search="search = $event" />
-        <PeopleTable :people="items" :action="peopleActions.add" />
+        <AppTable :columns="['Id', 'Name', 'Action']" :key="peopleActions.add">
+          <template v-if="items" v-slot:row>
+            <tr v-for="item in items" :key="item.id + peopleActions.add">
+              <td>{{ item.id }}</td>
+              <td>{{ item.name }}</td>
+              <td>
+                <PeopleButton
+                  :action="peopleActions.add"
+                  :item="item"
+                  class="align-self-end"
+                />
+              </td>
+            </tr>
+          </template>
+        </AppTable>
       </div>
       <div class="col-sm-2 d-flex justify-content-center">
         <span class="home-arrow">-></span>
       </div>
       <div class="home-right col-sm d-flex">
-        <PeopleTable :people="itemsAdded" :action="peopleActions.rm" />
+        <AppTable :columns="['Id', 'Name', 'Action']" :key="peopleActions.rm">
+          <template v-if="itemsAdded" v-slot:row>
+            <tr v-for="item in itemsAdded" :key="item.id + peopleActions.rm">
+              <td>{{ item.id }}</td>
+              <td>{{ item.name }}</td>
+              <td>
+                <PeopleButton
+                  :action="peopleActions.rm"
+                  :item="item"
+                  class="align-self-end"
+                />
+              </td>
+            </tr>
+          </template>
+        </AppTable>
       </div>
     </div>
   </div>
@@ -19,7 +47,8 @@
 import { defineComponent, computed, ref } from 'vue'
 import { useStore } from '@/store'
 import PeopleSearch from '@/components/people/PeopleSearch.vue'
-import PeopleTable from '@/components/people/PeopleTable.vue'
+import PeopleButton from '@/components/people/PeopleButton.vue'
+import AppTable from '@/components/ui/AppTable.vue'
 import { PeopleItem, PeopleAction } from '@/store/state'
 const store = useStore()
 
@@ -32,7 +61,8 @@ export default defineComponent({
 
   components: {
     PeopleSearch,
-    PeopleTable,
+    PeopleButton,
+    AppTable,
   },
 
   setup() {

@@ -36,7 +36,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
 ### What else to do:
-- Optimize Home-tables (PeopleTable -> AppTable)
 - Chunk store - commits (10 items per commit e.g.)
 - Defer rendering long lists. See chunking store
 - Good story for this dummy data && pretty design
